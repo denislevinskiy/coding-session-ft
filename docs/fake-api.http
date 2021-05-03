@@ -1,0 +1,7 @@
+### regular
+
+GET https://localhost:5001/api/employees/1
+
+### with error 503
+
+GET https://localhost:5001/api/employees/1?error=503
