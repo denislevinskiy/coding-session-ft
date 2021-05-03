@@ -1,0 +1,44 @@
+﻿[*.cs]
+
+# Indentation and spacing
+indent_size = 4
+indent_style = space
+tab_width = 4
+
+# New line preferences
+end_of_line = crlf
+insert_final_newline = false
+
+#### .NET Coding Conventions ####
+
+# Organize usings
+dotnet_separate_import_directive_groups = false
+dotnet_sort_system_directives_first = true
+
+# this. and Me. preferences
+dotnet_style_qualification_for_event = false:silent
+dotnet_style_qualification_for_field = false:silent
+dotnet_style_qualification_for_method = false:silent
+dotnet_style_qualification_for_property = false:silent
+
+# Language keywords vs BCL types preferences
+dotnet_style_predefined_type_for_locals_parameters_members = true:error
+dotnet_style_predefined_type_for_member_access = true:error
+
+# StyleCop rules
+# SA1600: Elements should be documented
+dotnet_diagnostic.SA1600.severity = none
+# SA1309: Field names should not begin with underscore
+dotnet_diagnostic.SA1309.severity = none
+# SA1101: Prefix local calls with this
+dotnet_diagnostic.SA1101.severity = none
+# SA1413: Use trailing comma in multi-line initializers
+dotnet_diagnostic.SA1413.severity = error
+# SA1633: File should have header
+dotnet_diagnostic.SA1633.severity = none
+# SA0001: Xml Comment Analysis Disabled
+dotnet_diagnostic.SA0001.severity = none
+# SA1649: File name should match first type name
+dotnet_diagnostic.SA1649.severity = error
+# SA1518: Use line endings correctly at end of file
+dotnet_diagnostic.SA1518.severity = error
