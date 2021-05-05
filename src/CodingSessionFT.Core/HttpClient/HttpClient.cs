@@ -20,9 +20,22 @@ namespace CodingSessionFT.Core.HttpClient
 
         public Task<HttpResponseMessage> SendAsync(HttpRequestMessage request)
         {
-            return _circuitBreaker is null
-                ? _httpClient.SendAsync(request)
-                : _circuitBreaker.ExecuteAsync(async () => await _httpClient.SendAsync(request));
+            if (_retry is null && _circuitBreaker is null)
+            {
+                return _httpClient.SendAsync(request);
+            }
+            else if (_retry is null)
+            {
+                return _circuitBreaker.ExecuteAsync(async () => await _httpClient.SendAsync(request));
+            }
+            else if (_circuitBreaker is null)
+            {
+                return _retry.ExecuteAsync(async rq => await _httpClient.SendAsync(rq), request);
+            }
+            else
+            {
+                return _circuitBreaker.ExecuteAsync(async () => await _retry.ExecuteAsync(async rq => await _httpClient.SendAsync(rq), request));
+            }
         }
 
         public HttpClient WithRetry(RetryPolicy policy)

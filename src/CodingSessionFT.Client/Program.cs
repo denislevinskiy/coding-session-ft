@@ -15,7 +15,7 @@ namespace CodingSessionFT.Client
     {
         static async Task Main(string[] args)
         {
-            await RunCircuitBreakerExampleAsync();
+            await RunCombinedPoliciesExampleAsync();
         }
 
         private static async Task RunRetryExampleAsync()
@@ -71,6 +71,54 @@ namespace CodingSessionFT.Client
                 try
                 {
                     var employee = await employeesRepository.GetWithDurableErrorEmulationAsync(i);
+                    Console.ForegroundColor = ConsoleColor.White;
+                    Console.WriteLine($"Data received. Name: {employee.Name}, age: {employee.Age}; time elapsed: {sw.ElapsedMilliseconds} ms");
+                    Console.ResetColor();
+                }
+                catch (CircuitBreakerException ex)
+                {
+                    Console.ForegroundColor = ConsoleColor.Yellow;
+                    Console.WriteLine($"{ex.Message}; time elapsed: {sw.ElapsedMilliseconds} ms");
+                    Console.ResetColor();
+                }
+                catch (Exception ex)
+                {
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.WriteLine($"{ex.Message}; time elapsed: {sw.ElapsedMilliseconds} ms");
+                    Console.ResetColor();
+                }
+                finally
+                {
+                    sw.Stop();
+                }
+            }
+        }
+
+        private static async Task RunCombinedPoliciesExampleAsync()
+        {
+            var retryPolicy = new RetryPolicy()
+                .WithMaxRetryCount(3)
+                .WithRetryInterval(TimeSpan.FromMilliseconds(500), 2)
+                .HandleException<HttpRequestException>();
+
+            var circuitBreakerPolicy = new HttpCircuitBreakerPolicy()
+                .WithMaxErrorsCount(3)
+                .WithTimeout(TimeSpan.FromSeconds(2));
+
+            var client = new HttpClient()
+                .WithRetry(retryPolicy)
+                .WithCircuitBreaker(circuitBreakerPolicy);
+
+            var employeesRepository = new EmployeesRepository(client);
+
+            employeesRepository.ResetInvokesCount();
+
+            for (var i = 1; i <= 75; i++)
+            {
+                var sw = Stopwatch.StartNew();
+                try
+                {
+                    var employee = await employeesRepository.GetAsync(i);
                     Console.ForegroundColor = ConsoleColor.White;
                     Console.WriteLine($"Data received. Name: {employee.Name}, age: {employee.Age}; time elapsed: {sw.ElapsedMilliseconds} ms");
                     Console.ResetColor();
