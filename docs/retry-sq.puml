@@ -1,0 +1,39 @@
+@startuml
+
+participant "Client" as Client
+participant "Retry proxy" as RetryProxy
+participant "Resource" as Resource
+
+skinparam shadowing false
+
+activate Client
+
+Client -> RetryProxy : request resource
+
+activate RetryProxy
+
+RetryProxy -> Resource : request resource
+
+alt valid response received
+
+Resource --> RetryProxy : requested resource
+RetryProxy --> Client : requested resource
+
+else error occured
+
+Resource --> RetryProxy : error
+
+loop for n iterations or till valid response received
+RetryProxy -> Resource : request resource
+Resource --> RetryProxy : requested resource or error
+end
+
+RetryProxy --> Client : requested resource or error
+
+end
+
+deactivate RetryProxy
+
+deactivate Client
+
+@enduml
