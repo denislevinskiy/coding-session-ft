@@ -39,5 +39,33 @@ namespace CodingSessionFT.Client.Repositories
                   PropertyNameCaseInsensitive = true,
               });
         }
+
+        public async Task<EmployeeModel> GetWithDurableErrorEmulationAsync(int id)
+        {
+            _invokesCount++;
+            HttpResponseMessage response;
+
+            if (10 <= _invokesCount && _invokesCount <= 20 || 25 <= _invokesCount && _invokesCount <= 40)
+            {
+                response = await _httpClient.SendAsync(new HttpRequestMessage
+                {
+                    RequestUri = new Uri($"https://localhost:5001/api/employees/{id}?error=503"),
+                });
+            }
+            else
+            {
+                response = await _httpClient.SendAsync(new HttpRequestMessage
+                {
+                    RequestUri = new Uri($"https://localhost:5001/api/employees/{id}"),
+                });
+            }
+
+            return await JsonSerializer.DeserializeAsync<EmployeeModel>(
+                await response.Content.ReadAsStreamAsync(),
+                new JsonSerializerOptions
+                {
+                    PropertyNameCaseInsensitive = true,
+                });
+        }
     }
 }

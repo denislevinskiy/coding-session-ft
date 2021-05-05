@@ -1,0 +1,70 @@
+@startuml
+
+participant "Client" as Client
+participant "Circuit breaker proxy" as CircuitBreakerProxy
+participant "Resource" as Resource
+
+skinparam shadowing false
+
+activate Client
+
+Client -> CircuitBreakerProxy : request resource
+
+activate CircuitBreakerProxy
+
+alt cb is CLOSED
+
+CircuitBreakerProxy -> Resource : request resource
+
+activate Resource
+
+alt valid response received
+
+Resource --> CircuitBreakerProxy : requested resource
+CircuitBreakerProxy --> Client : requested resource
+
+else error occured and errors limit not exceeded
+
+Resource --> CircuitBreakerProxy : error
+CircuitBreakerProxy --> Client : error
+
+else error occured and errors limit exceeded
+
+Resource --> CircuitBreakerProxy : error
+CircuitBreakerProxy -> CircuitBreakerProxy : set state to OPEN,\nupdate timeout
+CircuitBreakerProxy --> Client : error
+
+end 
+
+else cb is HALF-OPEN or cb is OPEN and timeout expired
+
+CircuitBreakerProxy -> CircuitBreakerProxy : set state to HALF-OPEN
+CircuitBreakerProxy -> Resource : request resource
+
+alt valid response received
+
+Resource --> CircuitBreakerProxy : requested resource
+CircuitBreakerProxy -> CircuitBreakerProxy : set state to CLOSED,\nreset last error
+CircuitBreakerProxy --> Client : requested resource
+
+else error occured
+
+Resource --> CircuitBreakerProxy : error
+CircuitBreakerProxy -> CircuitBreakerProxy : set state to OPEN,\nupdate timeout,\nupdate last error
+CircuitBreakerProxy --> Client : error
+
+end 
+
+else cb is OPEN and timeout not expired
+
+CircuitBreakerProxy --> Client : last error
+
+end
+
+deactivate Resource
+
+deactivate CircuitBreakerProxy
+
+deactivate Client
+
+@enduml
