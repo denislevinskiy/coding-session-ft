@@ -7,9 +7,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CodingSessionFT.Api", "Codi
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "_build", "..\build\_build.csproj", "{0216CCDC-C338-4E8E-848E-A94AD4F0623E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CodingSessionFT.Client", "CodingSessionFT.Client\CodingSessionFT.Client.csproj", "{95C6E3A6-F7E3-4F3E-B545-65E8F03B507B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CodingSessionFT.Client", "CodingSessionFT.Client\CodingSessionFT.Client.csproj", "{95C6E3A6-F7E3-4F3E-B545-65E8F03B507B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CodingSessionFT.Core", "CodingSessionFT.Core\CodingSessionFT.Core.csproj", "{5D6EC497-B0B4-4D12-904F-EC195B6B3838}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CodingSessionFT.Core", "CodingSessionFT.Core\CodingSessionFT.Core.csproj", "{5D6EC497-B0B4-4D12-904F-EC195B6B3838}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CodingSessionFT.PollyClient", "CodingSessionFT.PollyClient\CodingSessionFT.PollyClient.csproj", "{5DE63C8E-BBAA-459F-B0D4-D4F2B0785723}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -31,6 +33,10 @@ Global
 		{5D6EC497-B0B4-4D12-904F-EC195B6B3838}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5D6EC497-B0B4-4D12-904F-EC195B6B3838}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5D6EC497-B0B4-4D12-904F-EC195B6B3838}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5DE63C8E-BBAA-459F-B0D4-D4F2B0785723}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5DE63C8E-BBAA-459F-B0D4-D4F2B0785723}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5DE63C8E-BBAA-459F-B0D4-D4F2B0785723}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5DE63C8E-BBAA-459F-B0D4-D4F2B0785723}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

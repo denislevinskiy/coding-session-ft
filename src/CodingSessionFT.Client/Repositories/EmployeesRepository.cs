@@ -45,7 +45,7 @@ namespace CodingSessionFT.Client.Repositories
             _invokesCount++;
             HttpResponseMessage response;
 
-            if (10 <= _invokesCount && _invokesCount <= 20 || 25 <= _invokesCount && _invokesCount <= 40)
+            if ((_invokesCount >= 10 && _invokesCount <= 20) || (_invokesCount >= 25 && _invokesCount <= 40))
             {
                 response = await _httpClient.SendAsync(new HttpRequestMessage
                 {

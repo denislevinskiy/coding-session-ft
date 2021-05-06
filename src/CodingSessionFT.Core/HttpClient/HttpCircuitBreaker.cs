@@ -9,7 +9,7 @@ namespace CodingSessionFT.Core.HttpClient
     {
         private readonly HttpCircuitBreakerPolicy _policy;
 
-        public HttpCircuitBreaker(HttpCircuitBreakerPolicy policy) 
+        public HttpCircuitBreaker(HttpCircuitBreakerPolicy policy)
             : base(policy)
         {
             _policy = policy;
@@ -24,6 +24,7 @@ namespace CodingSessionFT.Core.HttpClient
                 {
                     throw new HttpRequestException($"Response status code is '{response.StatusCode}'");
                 }
+
                 return response;
             });
         }

@@ -8,10 +8,10 @@ namespace CodingSessionFT.Core.HttpClient
 {
     public sealed class HttpClient
     {
+        private readonly System.Net.Http.HttpClient _httpClient;
+
         private HttpRetry _retry;
         private HttpCircuitBreaker _circuitBreaker;
-
-        private readonly System.Net.Http.HttpClient _httpClient;
 
         public HttpClient()
         {

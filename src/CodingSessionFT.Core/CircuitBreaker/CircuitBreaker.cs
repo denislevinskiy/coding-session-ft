@@ -5,8 +5,6 @@ namespace CodingSessionFT.Core.CircuitBreaker
 {
     public class CircuitBreaker<TOutput>
     {
-        public CircuitBreakerPolicy Policy { get; private set; }
-
         private int _currentErrorsCount;
 
         private Exception _lastException;
@@ -19,6 +17,8 @@ namespace CodingSessionFT.Core.CircuitBreaker
         {
             Policy = policy;
         }
+
+        public CircuitBreakerPolicy Policy { get; private set; }
 
         public virtual async Task<TOutput> ExecuteAsync(Func<Task<TOutput>> action)
         {
@@ -39,6 +39,7 @@ namespace CodingSessionFT.Core.CircuitBreaker
                             throw;
                         }
                     }
+
                 case CircuitBreakerState.HalfOpen:
                 case CircuitBreakerState.Open when TimeOutExpired():
                     {
@@ -55,6 +56,7 @@ namespace CodingSessionFT.Core.CircuitBreaker
                             throw;
                         }
                     }
+
                 case CircuitBreakerState.Open when !TimeOutExpired():
                     throw new CircuitBreakerException(_lastException);
                 default:

@@ -12,7 +12,7 @@ namespace CodingSessionFT.Core.Retry
             IntervalMultiplier = 2;
             DetectExceptionTypes = new List<Type>();
         }
-        
+
         public List<Type> DetectExceptionTypes { get; }
 
         public int MaxRetryCount { get; private set; }

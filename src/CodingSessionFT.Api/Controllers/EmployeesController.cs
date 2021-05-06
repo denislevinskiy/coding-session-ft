@@ -18,7 +18,7 @@ namespace CodingSessionFT.Api.Controllers
 
         [HttpGet("{id}")]
         public async Task<ActionResult<EmployeeModel>> GetAsync(
-            int id, 
+            int id,
             [FromQuery] int error)
         {
             if (error != 0)

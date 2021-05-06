@@ -9,6 +9,11 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Polly" />
+    <PackageReference Include="Polly.Extensions.Http" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\CodingSessionFT.Core\CodingSessionFT.Core.csproj" />
   </ItemGroup>
 

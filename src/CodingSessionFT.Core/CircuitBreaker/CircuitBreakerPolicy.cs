@@ -14,7 +14,7 @@ namespace CodingSessionFT.Core.CircuitBreaker
 
         public int MaxErrorsCount { get; protected set; }
 
-        public TimeSpan Timeout { get; protected set; } 
+        public TimeSpan Timeout { get; protected set; }
 
         public List<Type> ExceptionTypes { get; protected set; }
 

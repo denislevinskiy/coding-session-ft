@@ -1,9 +1,9 @@
 ﻿using System;
-using CodingSessionFT.Client.Repositories;
-using System.Threading.Tasks;
 using System.Diagnostics;
 using System.Net;
 using System.Net.Http;
+using System.Threading.Tasks;
+using CodingSessionFT.Client.Repositories;
 using CodingSessionFT.Core.CircuitBreaker;
 using CodingSessionFT.Core.HttpClient;
 using CodingSessionFT.Core.Retry;
@@ -11,9 +11,9 @@ using HttpClient = CodingSessionFT.Core.HttpClient.HttpClient;
 
 namespace CodingSessionFT.Client
 {
-    class Program
+    internal class Program
     {
-        static async Task Main(string[] args)
+        private static async Task Main(string[] args)
         {
             await RunCombinedPoliciesExampleAsync();
         }

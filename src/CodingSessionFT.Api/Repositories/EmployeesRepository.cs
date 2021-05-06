@@ -11,7 +11,7 @@ namespace CodingSessionFT.Api.Repositories
       {
         Id = id,
         Age = 34,
-        Name = "John Doe"
+        Name = "John Doe",
       });
     }
   }
